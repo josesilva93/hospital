@@ -1,10 +1,9 @@
-﻿using JuegoPoo;
-using System;
+﻿using System;
 using System.Collections;
 using System.Linq.Expressions;
 using System.Numerics;
 
-namespace JuegoPoo
+namespace hospital
 {
     class Program
     {

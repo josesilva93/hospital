@@ -13,14 +13,16 @@ namespace hospital
         public string pronostico { get; set; }
         public List<string> medicacion { get; set; }
         public List<string> pruebas { get; set; }
+        public bool dado_Alta { get; set; }
 
-        public Paciente(string diagnostico, int dias_Ingresado, string pronostico, List<string>medicacion, List<string> pruebas)  
+        public Paciente() { }
+        public Paciente(string nombre, string direccion, string dni, string diagnostico, int dias_Ingresado, string pronosticoa)  
         {
+            this.nombre = nombre;
+            this.direccion = direccion;
+            this.dni = dni;
             this.diagnostico = diagnostico;
             this.dias_Ingresado = dias_Ingresado;
-            this.pronostico = pronostico;
-            this.medicacion = medicacion;
-            this.pruebas = pruebas;
         }
 
     }

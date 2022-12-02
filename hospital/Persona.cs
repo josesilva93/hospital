@@ -10,8 +10,10 @@ namespace hospital
 {
     class Persona
     {
-        public Guid posicion1 { get; set; }
-     
+        public string dni { get; set; }
+        public string nombre { get; set; }
+
+        public string direccion { get; set; }
     }
     
 }

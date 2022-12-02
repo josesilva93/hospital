@@ -11,6 +11,9 @@ namespace hospital
     {
         public Manager()
         {
+            List<Paciente> pacientes= new List<Paciente>();
+            Menu menu= new Menu(pacientes);
+
         }
       
     }

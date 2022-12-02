@@ -1,0 +1,15 @@
+C:\Users\torment\source\repos\hospital\hospital\bin\Debug\net6.0\hospital.exe
+C:\Users\torment\source\repos\hospital\hospital\bin\Debug\net6.0\hospital.deps.json
+C:\Users\torment\source\repos\hospital\hospital\bin\Debug\net6.0\hospital.runtimeconfig.json
+C:\Users\torment\source\repos\hospital\hospital\bin\Debug\net6.0\hospital.dll
+C:\Users\torment\source\repos\hospital\hospital\bin\Debug\net6.0\hospital.pdb
+C:\Users\torment\source\repos\hospital\hospital\obj\Debug\net6.0\hospital.csproj.AssemblyReference.cache
+C:\Users\torment\source\repos\hospital\hospital\obj\Debug\net6.0\hospital.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\torment\source\repos\hospital\hospital\obj\Debug\net6.0\hospital.AssemblyInfoInputs.cache
+C:\Users\torment\source\repos\hospital\hospital\obj\Debug\net6.0\hospital.AssemblyInfo.cs
+C:\Users\torment\source\repos\hospital\hospital\obj\Debug\net6.0\hospital.csproj.CoreCompileInputs.cache
+C:\Users\torment\source\repos\hospital\hospital\obj\Debug\net6.0\hospital.dll
+C:\Users\torment\source\repos\hospital\hospital\obj\Debug\net6.0\refint\hospital.dll
+C:\Users\torment\source\repos\hospital\hospital\obj\Debug\net6.0\hospital.pdb
+C:\Users\torment\source\repos\hospital\hospital\obj\Debug\net6.0\hospital.genruntimeconfig.cache
+C:\Users\torment\source\repos\hospital\hospital\obj\Debug\net6.0\ref\hospital.dll
