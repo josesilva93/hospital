@@ -9,7 +9,7 @@ namespace hospital
 {
     class Menu
     {
-        public Menu(List<Paciente> pacientes)
+        public Menu(List<Paciente> pacientes, Dictionary<string, Cuerpo> listaMorge)
         {
 
             while (true)
@@ -19,68 +19,139 @@ namespace hospital
                 Console.WriteLine("Introduzca \n 1) Registrar paciente \n 2) Dar de alta" +
                 " \n 3) Notificar deceso \n 4) Realizar prueba \n 5) Asignar medicamento");
                 Console.WriteLine("_____________________________________________");
-                int opcionSeleccionada = Convert.ToInt32(Console.ReadLine());
-                switch (opcionSeleccionada)
+                try
                 {
-                    case 1:
-                        pacientes.Add(RegistrarPaciente());
-                        break;
-                    case 2:
-                        DarAltaPaciente(pacientes);
-                        break;
-                    case 3:
-                        DecesoPaciente(pacientes);
-                        break;
-                    case 4:
-                        AsignarPrueba(pacientes);
-                        break;
-                    case 5:
-                        AsignarMedicamento(pacientes);
-                        break;
+                    int opcionSeleccionada = Convert.ToInt32(Console.ReadLine());
+                    switch (opcionSeleccionada)
+                    {
+                        case 1:
+                            pacientes.Add(RegistrarPaciente());
+                            break;
+                        case 2:
+                            DarAltaPaciente(pacientes);
+                            break;
+                        case 3:
+                            DecesoPaciente(pacientes, listaMorge);
+                            break;
+                        case 4:
+                            AsignarPrueba(pacientes);
+                            break;
+                        case 5:
+                            AsignarMedicamento(pacientes);
+                            break;
+                    }
+                }
+                catch (IOException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                catch (OutOfMemoryException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
 
             }
         }
         public Paciente RegistrarPaciente()
         {
-            Console.WriteLine("Introduzca el nombre del paciente:");
-            Paciente paciente = new Paciente();
-            paciente.nombre = Console.ReadLine();
-            Console.WriteLine("Introduzca el direccion del paciente:");
-            paciente.direccion = Console.ReadLine();
-            Console.WriteLine("Introduzca el dni del paciente:");
-            paciente.dni = Console.ReadLine();
-            Console.WriteLine("Introduzca los dias que estará ingresado el paciente:");
-            paciente.dias_Ingresado = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Paciente registrado: ");
-            MostrarDatosPaciente(paciente);
-            return paciente;
+            try
+            {
+                Console.WriteLine("Introduzca el nombre del paciente:");
+                Paciente paciente = new Paciente();
+                paciente.nombre = Console.ReadLine();
+                Console.WriteLine("Introduzca el direccion del paciente:");
+                paciente.direccion = Console.ReadLine();
+                Console.WriteLine("Introduzca el dni del paciente:");
+                paciente.dni = Console.ReadLine();
+                Console.WriteLine("Introduzca los dias que estará ingresado el paciente:");
+                paciente.dias_Ingresado = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Paciente registrado: ");
+                MostrarDatosPaciente(paciente);
+                return paciente;
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (OutOfMemoryException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
         public void DarAltaPaciente(List<Paciente> pacientes)
         {
-            Paciente paciente = new Paciente();
-            Console.WriteLine("Introduzca el dni del paciente:");
-            string dni = Console.ReadLine();
-            var result = from p in pacientes where p.dni.Equals(dni) select p;
-            paciente = pacientes.First();
-            paciente.dado_Alta = true;
-            Console.WriteLine("Introduzca la nota especifica de alta: ");
-            string nota_alta = Console.ReadLine();
-            Console.WriteLine("Paciente dado de alta: ");
-            Console.WriteLine("Nota especifica de alta: " + nota_alta);
-            MostrarDatosPaciente(paciente);
+            try
+            {
+                Paciente paciente = new Paciente();
+                Console.WriteLine("Introduzca el dni del paciente:");
+                string dni = Console.ReadLine();
+                var result = from p in pacientes where p.dni.Equals(dni) select p;
+                paciente = pacientes.First();
+                paciente.dado_Alta = true;
+                Console.WriteLine("Introduzca la nota especifica de alta: ");
+                string nota_alta = Console.ReadLine();
+                Console.WriteLine("Paciente dado de alta: ");
+                Console.WriteLine("Nota especifica de alta: " + nota_alta);
+                MostrarDatosPaciente(paciente);
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (OutOfMemoryException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
-        public void DecesoPaciente(List<Paciente> pacientes)
+        public void DecesoPaciente(List<Paciente> pacientes, Dictionary<string, Cuerpo> listaMorge)
         {
-            Paciente paciente = new Paciente();
-            Console.WriteLine("Introduzca el dni del paciente:");
-            string dni = Console.ReadLine();
+            try
+            {
+                Paciente paciente = new Paciente();
+                Console.WriteLine("Introduzca el dni del paciente:");
+                string dni = Console.ReadLine();
 
-            paciente = pacientes.First();
-            pacientes.Remove(paciente);
-            MostrarTodoslosPacientes(pacientes);
-            Console.WriteLine("Paciente con dni" + dni + "eliminado.");
+                paciente = pacientes.First();
+                pacientes.Remove(paciente);
+                MostrarTodoslosPacientes(pacientes);
+                Console.WriteLine("Paciente con dni" + dni + "eliminado.");
+                Cuerpo cuerpo = new Cuerpo(Guid.NewGuid(), dni);
+                listaMorge.Add(dni, cuerpo);
+                Console.WriteLine("Cuerpo con codigo " + cuerpo.id + "añadido a lista de morge.");
+                Console.WriteLine("_____________________________________________");
+                Console.WriteLine("Lista de cuerpos: ");
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (OutOfMemoryException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            foreach (var m in listaMorge)
+            {
+                Console.WriteLine("Identificador cuerpo: " + m.Value.id);
+                Console.WriteLine("DNI: " + m.Key);
+            }
+            Console.WriteLine("_____________________________________________");
         }
         public void MostrarDatosPaciente(Paciente paciente)
         {
@@ -92,6 +163,7 @@ namespace hospital
             else alta = "Si";
             Console.WriteLine("Nombre: " + paciente.nombre);
             Console.WriteLine("Direccion: " + paciente.direccion);
+            Console.WriteLine("DNI: " + paciente.dni);
             Console.WriteLine("Tiempo de ingreso " + paciente.dias_Ingresado);
             Console.WriteLine("Tiene alta medica " + alta);
         }
@@ -106,58 +178,97 @@ namespace hospital
 
         public void AsignarPrueba(List<Paciente> pacientes)
         {
-            Paciente paciente = new Paciente();
-            Console.WriteLine("Introduzca el dni del paciente:");
-            string dni = Console.ReadLine();
-            var result = from p in pacientes where p.dni.Equals(dni) select p;
-            paciente = pacientes.First();
-            string pruebaSeleccionada = MenuPruebas();
-            if (pruebaSeleccionada != "")
+            try
             {
-
-                if (paciente.pruebas == null)
+                Paciente paciente = new Paciente();
+                Console.WriteLine("Introduzca el dni del paciente:");
+                string dni = Console.ReadLine();
+                var result = from p in pacientes where p.dni.Equals(dni) select p;
+                paciente = pacientes.First();
+                string pruebaSeleccionada = MenuPruebas();
+                if (pruebaSeleccionada != "")
                 {
-                    paciente.pruebas = new List<string>();
+
+                    if (paciente.pruebas == null)
+                    {
+                        paciente.pruebas = new List<string>();
+                    }
+                    else
+                    {
+                        paciente.pruebas.Add(pruebaSeleccionada);
+                    }
+
+                    Console.WriteLine("Se asigno una prueba de: " + pruebaSeleccionada);
                 }
                 else
                 {
-                    paciente.pruebas.Add(pruebaSeleccionada);
+                    Console.WriteLine("No se asigno ninguna prueba");
                 }
-
-                Console.WriteLine("Se asigno una prueba de: " + pruebaSeleccionada);
+                MostrarDatosPaciente(paciente);
             }
-            else
+            catch (IOException ex)
             {
-                Console.WriteLine("No se asigno ninguna prueba");
+                Console.WriteLine(ex.Message);
             }
-            MostrarDatosPaciente(paciente);
+            catch (OutOfMemoryException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
         }
         public void AsignarMedicamento(List<Paciente> pacientes)
         {
-            Paciente paciente = new Paciente();
-            Console.WriteLine("Introduzca el dni del paciente:");
-            string dni = Console.ReadLine();
-            var result = from p in pacientes where p.dni.Equals(dni) select p;
-            paciente = pacientes.First();
-            string medicamenteRecetado = MenuPruebas();
-            if (medicamenteRecetado != "")
+            try
             {
-                if (paciente.medicacion == null)
+                Paciente paciente = new Paciente();
+                Console.WriteLine("Introduzca el dni del paciente:");
+                string dni = Console.ReadLine();
+                var result = from p in pacientes where p.dni.Equals(dni) select p;
+                paciente = pacientes.First();
+                string medicamenteRecetado = MenuMedicamentos();
+                Medicamento medicamento = new Medicamento(medicamenteRecetado);
+                if (medicamenteRecetado != "")
                 {
-                    paciente.medicacion = new List<string>();
+                    if (paciente.medicacion == null)
+                    {
+                        paciente.medicacion = new List<Medicamento>();
+                        paciente.medicacion.Add(medicamento);
+                    }
+                    else
+                    {
+                        paciente.medicacion.Add(medicamento);
+                    }
+                    MostrarDatosPaciente(paciente);
+                    Console.WriteLine("_____________________________________________");
+                    Console.WriteLine("Medicamentos asignados: ");
+                    foreach (var m in paciente.medicacion)
+                    {
+                        Console.WriteLine(m.nombre);
+                    }
+                    Console.WriteLine("_____________________________________________");
                 }
                 else
                 {
-                    paciente.pruebas.Add(medicamenteRecetado);
+                    Console.WriteLine("No se asigno ninguna prueba");
                 }
-
-                Console.WriteLine("Se receto: " + medicamenteRecetado);
             }
-            else
+            catch (IOException ex)
             {
-                Console.WriteLine("No se asigno ninguna prueba");
+                Console.WriteLine(ex.Message);
             }
-            MostrarDatosPaciente(paciente);
+            catch (OutOfMemoryException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+          
         }
         public string MenuPruebas()
         {
