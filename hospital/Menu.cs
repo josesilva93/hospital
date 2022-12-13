@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace hospital
@@ -58,10 +60,10 @@ namespace hospital
         }
         public Paciente RegistrarPaciente()
         {
+            Paciente paciente = new Paciente();
             try
             {
-                Console.WriteLine("Introduzca el nombre del paciente:");
-                Paciente paciente = new Paciente();
+                Console.WriteLine("Introduzca el nombre del paciente:");              
                 paciente.nombre = Console.ReadLine();
                 Console.WriteLine("Introduzca el direccion del paciente:");
                 paciente.direccion = Console.ReadLine();
@@ -70,8 +72,7 @@ namespace hospital
                 Console.WriteLine("Introduzca los dias que estará ingresado el paciente:");
                 paciente.dias_Ingresado = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("Paciente registrado: ");
-                MostrarDatosPaciente(paciente);
-                return paciente;
+                MostrarDatosPaciente(paciente);               
             }
             catch (IOException ex)
             {
@@ -85,6 +86,7 @@ namespace hospital
             {
                 Console.WriteLine(ex.Message);
             }
+            return paciente;
         }
         public void DarAltaPaciente(List<Paciente> pacientes)
         {
@@ -119,17 +121,26 @@ namespace hospital
         {
             try
             {
+                bool fechaValida = false;
                 Paciente paciente = new Paciente();
                 Console.WriteLine("Introduzca el dni del paciente:");
                 string dni = Console.ReadLine();
-
+                string fechaFallecimiento = "";
+                while (!fechaValida) 
+                {
+                    Console.WriteLine("Introduzca fecha del fallecimiento dd/mm/yyyy hh:mm");
+                    fechaFallecimiento = Console.ReadLine();
+                    fechaValida = comprobarFecha(fechaFallecimiento);
+                }
+                DateTime dateTimeFechaFallecimiento = DateTime.Parse(fechaFallecimiento);
                 paciente = pacientes.First();
                 pacientes.Remove(paciente);
                 MostrarTodoslosPacientes(pacientes);
                 Console.WriteLine("Paciente con dni" + dni + "eliminado.");
-                Cuerpo cuerpo = new Cuerpo(Guid.NewGuid(), dni);
+                Cuerpo cuerpo = new Cuerpo(Guid.NewGuid(), dni, dateTimeFechaFallecimiento);
                 listaMorge.Add(dni, cuerpo);
                 Console.WriteLine("Cuerpo con codigo " + cuerpo.id + "añadido a lista de morge.");
+                Console.WriteLine("Hora y fecha de fallecimiento " + cuerpo.fechaFallecimiento);
                 Console.WriteLine("_____________________________________________");
                 Console.WriteLine("Lista de cuerpos: ");
             }
@@ -318,5 +329,13 @@ namespace hospital
                     return "";
             }
         }
+        public bool comprobarFecha(string fecha)
+        {
+            Regex regex = new Regex(@"^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})(\s)([0-1][0-9]|2[0-3])(:)([0-5][0-9])$");
+            //Verify whether date entered in dd/MM/yyyy format.
+            bool isValid = regex.IsMatch(fecha);
+            return isValid;
+        }
+
     }
 }
